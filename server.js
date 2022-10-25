@@ -2,16 +2,17 @@
 
 console.log('our fist server');
 
-const { response } = require('express');
+// const { response } = require('express');
 //******requires*****
 const express = require('express');
 require('dotenv').config();
-let data = require('./data/pets.json');
-
+let data = require('./data/weather.json');
+const cors = require('cors');
 // once express is in we need to use it
 // app === server
 const app = express();
-
+// middleware to share resouces across internet
+app.use(cors());
 // define my port
 
 const PORT = process.env.PORT || 3002;
@@ -31,7 +32,9 @@ app.get('/hello', (request, response) => {
 });
 app.get('.pet', (request, response) => {
   try {
-    let species = request.query.species;
+    let lat = request.query.lat;
+    let lon = request.query.lon;
+    let weather = request.query.weather;
     let dataToGroom = data.find(pet => pet.species === species);
     let dataToSend = new Forcast(dataToGroom);
     response.statusMessage(200).send(dataToSend);

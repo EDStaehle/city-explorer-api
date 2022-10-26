@@ -20,33 +20,27 @@ const PORT = process.env.PORT || 3002;
 
 //******endpoints */
 // base endpoint
-app.get('/', (request, response) => {
-  console.log('this is showing up in my terminal');
-  response.status(200).send('welcome to my server');
-});
-app.get('/hello', (request, response) => {
-  console.log(request.query);
-  let firstName = request.query.firstName;
-  let lastName = request.query.lastName;
-  response.status(200).send(`hello ${firstName} ${lastName}`);
-});
-app.get('.pet', (request, response) => {
+
+app.get('/weather', (request, response,next) => {
   try {
-    let lat = request.query.lat;
-    let lon = request.query.lon;
-    let weather = request.query.weather;
-    let dataToGroom = data.find(pet => pet.species === species);
-    let dataToSend = new Forcast(dataToGroom);
-    response.statusMessage(200).send(dataToSend);
-    console.log(species);
+    console.log('hit weather route');
+    const {city} = request.query;
+    let lat = Math.floor(request.query.lat);
+    let lon = Math.floor(request.query.lon);
+    let dataToGroom = data.find(cityObj => cityObj.city_name.toLowerCase() === city.toLowerCase() && Math.floor(cityObj.lat) === lat && Math.floor(cityObj.lon) === lon);
+    let dataToSend = dataToGroom.data.map(day => new Forcast(day));
+    console.log(dataToSend);
+    response.status(200).send(dataToSend);
   } catch (error) {
     next(error);
   }
 });
+
 class Forcast {
-  constructor(petObj){
-    this.name = petObj.name;
-    this.weather = petObj.weather;
+  constructor(cityObj){
+    this.weather = cityObj.weather.description;
+    this.date = cityObj.datetime;
+    this.key = cityObj._id;
   }
 }
 
@@ -55,9 +49,9 @@ app.get('*', (request, response) => {
 });
 //*****error handling*** *
 
-app.use((error, request, response, next) => {
-  response.status(500).send(error.message);
-});
+// app.use((error, request, response, next) => {
+//   response.status(500).send(error.message);
+// });
 
 
 //******server start ********

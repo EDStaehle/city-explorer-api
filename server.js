@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 3002;
 app.get('/weather', (request, response,next) => {
   try {
     console.log('hit weather route');
-    const {city} = request.query;
+    let city = request.query.searchQuery;
     let lat = Math.floor(request.query.lat);
     let lon = Math.floor(request.query.lon);
     let dataToGroom = data.find(cityObj => cityObj.city_name.toLowerCase() === city.toLowerCase() && Math.floor(cityObj.lat) === lat && Math.floor(cityObj.lon) === lon);

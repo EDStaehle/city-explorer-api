@@ -43,7 +43,8 @@
               "temp": 7.5,
               "min_temp": 5,
               "clouds_mid": 8,
-              "clouds_low": 58
+              "clouds_low": 58,
+              "_id": 1
           },
           {
               "moonrise_ts": 1616621240,
@@ -87,7 +88,8 @@
               "temp": 6.2,
               "min_temp": 4.7,
               "clouds_mid": 68,
-              "clouds_low": 83
+              "clouds_low": 83,
+              "_id": 2
           },
           {
               "moonrise_ts": 1616712188,
@@ -131,7 +133,8 @@
               "temp": 6.8,
               "min_temp": 5,
               "clouds_mid": 15,
-              "clouds_low": 89
+              "clouds_low": 89,
+              "_id": 3
           }
       ],
       "city_name": "Seattle",
@@ -140,6 +143,7 @@
       "lat": "47.60621",
       "country_code": "US",
       "state_code": "WA"
+      
   },
   {
       "data": [
@@ -273,7 +277,8 @@
               "temp": 12.2,
               "min_temp": 6.2,
               "clouds_mid": 14,
-              "clouds_low": 20
+              "clouds_low": 20,
+              "key": "2"
           }
       ],
       "city_name": "Paris",
@@ -282,6 +287,7 @@
       "lat": 48.86,
       "country_code": "FR",
       "state_code": "11"
+      
   },
   {
       "data": [
@@ -415,7 +421,8 @@
               "temp": 20.6,
               "min_temp": 14.6,
               "clouds_mid": 0,
-              "clouds_low": 0
+              "clouds_low": 0,
+              "key": "3"
           }
       ],
       "city_name": "Amman",
@@ -424,5 +431,6 @@
       "lat": 31.95,
       "country_code": "JO",
       "state_code": "16"
+      
   }
 ]

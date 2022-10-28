@@ -1,33 +1,24 @@
 'use strict';
-console.log('our fist server');
-//******requires*****
-const express = require('express');
+
 require('dotenv').config();
-// let data = require('./data/weather.json');
+const express = require('express');
 const cors = require('cors');
-const axios = require('axios');
-const weatherHandler = require('./modules/weather_api');
-const movieHandler = require('./modules/movies_api');
-const errorHandle = require('./modules/error_handle')
-// once express is in we need to use it
-// app === server
+const getMovies = require('./modules/movies')
+const weather = require('./modules/weather.js');
 const app = express();
-// middleware to share resouces across internet
 app.use(cors());
-// define my port
-const PORT = process.env.PORT || 3002;
-//******endpoints */
-// base endpoint
 app.get('/weather', weatherHandler);
-app.get('/movies', movieHandler);
-app.get('*', errorHandle);
-//*****error handling*** *
-app.use((error, req, res, next)=>{
-  console.log(error.message);
-  res.status(500).send(error);
-})
-//******server start ********
-app.listen(PORT, () => console.log(`we are up and running on ${PORT}`));
+app.get('/movies', getMovies);
 
+const PORT = process.env.PORT;
+function weatherHandler(request, response) {
+  const { lat, lon } = request.query;
+  weather(lat, lon)
+  .then(summaries => response.send(summaries))
+  .catch((error) => {
+    console.error(error);
+    response.status(200).send('Sorry. Something went wrong!')
+  });
+}  
 
-
+app.listen(PORT, () => console.log(`Server up on ${PORT}`));

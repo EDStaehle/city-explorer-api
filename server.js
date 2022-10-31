@@ -5,9 +5,10 @@ const express = require('express');
 const cors = require('cors');
 const getMovies = require('./modules/movies')
 const weather = require('./modules/weather.js');
+const getWeather = require('./modules/weather.js');
 const app = express();
 app.use(cors());
-app.get('/weather', weatherHandler);
+app.get('/weather', getWeather);
 app.get('/movies', getMovies);
 
 const PORT = process.env.PORT;
